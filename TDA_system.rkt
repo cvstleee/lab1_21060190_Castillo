@@ -20,8 +20,7 @@
 
 (define (system-add-chatbot system chatbot)
     (list system chatbot))
-
-
+    
 ;creando la un nuevo sistema de chatbots con nombre “NewSystem”
 (define s0 (system "NewSystem"))
 ;alternativamente podría usarse:

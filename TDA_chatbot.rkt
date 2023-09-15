@@ -21,7 +21,9 @@
 
 ;añade flujos al final de la lista de flujos
 (define (chatbot-add-flow chatbot flow)
-(list chatbot flow)) ;como no existe el reverse, necesito la recursión
+    (if (null? chatbot) (list chatbot flow)
+    (chatbot-add-flow (list chatbot flow)))
+    
 
 
 
