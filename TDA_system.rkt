@@ -18,11 +18,52 @@
 ; Descripcion: agrega un chatbot al sistema.
 ; Tipo de recursion: no se utiliza.
 
-(define (system-add-chatbot system chatbot)
-    (list system chatbot))
-    
+;ver que el chatbot no exista en el sistema
+
+(define (system-add-chatbot sistema chatbot)
+    (list sistema chatbot))
+
+;RF9
+; Dominio: system X user (string)
+; Recorrido: system
+; Descripcion: agrega un chatbot al sistema.
+; Tipo de recursion: no se utiliza.
+
+;Debe verificar que el usuario no exista en el sistema a partir del id de éste, que está dado por su nombre de usuario (String).
+
+(define (system-add-user sistema user)
+    (list sistema user))
+
+
+;RF10
+; Dominio: system X user (string)
+; Recorrido: system
+;Descripcion: Un usuario registrado inicia sesión.
+; Tipo de recursion: no se utiliza.
+
+;Solo pueden iniciar sesión usuarios registrados mediante la función register system-add-user.
+
+(define (system-login sistema user)
+    (list sistema user))
+
+
+;RF11
+; Dominio: system 
+; Recorrido: system
+;Descripcion: Un usuario registrado cierra sesión
+; Tipo de recursion: no se utiliza.
+
+;debe eliminar a un usuario
+(define (system-logout sistema)
+    )
+
+
+;RF12 para el 4 y algooooo, hasta aqui debo llegar si o si
+
+
 ;creando la un nuevo sistema de chatbots con nombre “NewSystem”
 (define s0 (system "NewSystem"))
+
 ;alternativamente podría usarse:
 (define s1 (system "NewSystem" cb11))
 

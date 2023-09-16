@@ -18,23 +18,23 @@
 
 (define (check-flow-exists chatbot flow)
     (if (null? (filter (lambda (x) (
-        if (equal? (get-flow-id x) (get-flow-id flow))
+        if (equal? (getIDFLow x) (getIDFLow flow))
             #t
             #f
         )) (get-chatbot-flows chatbot)))
-    #f
-    #t
-    ))
+        #f
+        #t
+        ))
 
 (define (add-flow-end flows new-flow)
-    if (null? flows)
+    (if (null? flows)
         new-flow
-        (list (car flows) (add-flow-end (cdr flows) new-flow)))
+        (list (car flows) (add-flow-end (cdr flows) new-flow))))
 
-(define (chatbot-add-flow chatbot flow new-chatbot)
-    (if (check-flow-exists chatbot flow)
-        chatbot
-        (set-chatbot-flows chatbot (add-flow-end (get-chatbot-flows chatbot) new-flow))))
+;(define (chatbot-add-flow chatbot flow new-chatbot)
+;    (if (check-flow-exists chatbot flow)
+;        chatbot
+;        (set-chatbot-flows chatbot (add-flow-end (get-chatbot-flows chatbot) new-flow))))
 
 ;se consigue el ID de una opción
 (define (getID opcion)
@@ -62,6 +62,12 @@
 (define (getIDFLow . flow)
     (car(car flow))) ;me devuelve solo el 1er ID
 
+;obtiene los flows de un chatbot
+(define (get-chatbot-flows chatbot)
+    cddr chatbot)
+
+
+
 
 (define (sacarIDPRUEBA . flow)
     (map getIDFLow flow)) ;map me devolverá una lista con solo las IDS.
@@ -77,6 +83,13 @@
 
 (define prueba2 (sacarIDPRUEBA f10))
 
+(define prueba3 (get-chatbot-flows f10))
+
+prueba3
+
+
+
+(newline)
 
 ;f10
 (newline)

@@ -1,6 +1,10 @@
 #lang racket
 (require "TDA_flujo.rkt")
 
+
+
+
+
 ;RF5
 ; Dominio: name (String) X welcomeMessage (String)  X  flows* (indicando que puede recibir 0 o más flujos).
 ; Recorrido: Chatbot.
