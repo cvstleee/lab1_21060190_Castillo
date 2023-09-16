@@ -7,7 +7,6 @@
 ; Descripcion: crea un chatbot.
 ; Tipo de recursion: No se utiliza.
 
-;SE USA NUEVAMENTE AUTOINCREMENTAL
 
 (define (chatbot name welcomeMessage . flows)
     (list name welcomeMessage flows))

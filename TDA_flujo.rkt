@@ -14,6 +14,32 @@
 (define (option codigo mensaje ChatBotCodeLink FlowCodeLink . Keyword)
     (list codigo mensaje ChatBotCodeLink FlowCodeLink Keyword)) 
 
+;kappa
+
+(define (check-flow-exists chatbot flow)
+    (if (null? (filter (lambda (x) (
+        if (equal? (get-flow-id x) (get-flow-id flow))
+            #t
+            #f
+        )) (get-chatbot-flows chatbot)))
+    #f
+    #t
+    ))
+
+(define (add-flow-end flows new-flow)
+    if (null? flows)
+        new-flow
+        (list (car flows) (add-flow-end (cdr flows) new-flow)))
+
+(define (chatbot-add-flow chatbot flow new-chatbot)
+    (if (check-flow-exists chatbot flow)
+        chatbot
+        (set-chatbot-flows chatbot (add-flow-end (get-chatbot-flows chatbot) new-flow))))
+
+;se consigue el ID de una opción
+(define (getID opcion)
+    (car opcion))
+
 (define op1 (option  1 "1) Viajar" 2 1 "viajar" "turistear" "conocer"))
 (define op2 (option  2 "2) Estudiar" 3 1 "estudiar" "aprender" "perfeccionarme"))
 
@@ -28,21 +54,39 @@
 
 ;Construye un flujo
 (define (flow ID nombre . opcion)
-     (duplicado (list opcion))
     (list ID nombre opcion)); como se puede ver, el ID es el primer valor de la lista, se puede usar car para obtenerlo
 
 ;debo verificar que las opciones no se repitan
 
-(define (duplicado . arg)
-    (if (equal? car (list arg) cadr(list arg) 
-        (list (car arg) (cadr arg))
-        null)))
+;se consigue el ID de un flujo, es un entero
+(define (getIDFLow . flow)
+    (car(car flow))) ;me devuelve solo el 1er ID
 
 
+(define (sacarIDPRUEBA . flow)
+    (map getIDFLow flow)) ;map me devolverá una lista con solo las IDS.
+
+
+
+
+;PROBANDO LAS 3 FUNCIONES ANTERIORES
 ;del script de pruebas
 (define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2 , este sirve para ver la pertenencia
 
-f10
+(define prueba (getIDFLow f10)) ;da 1
+
+(define prueba2 (sacarIDPRUEBA f10))
+
+
+;f10
+(newline)
+prueba 
+(newline)
+prueba2
+
+
+
+
 
 ;creando un nuevo flow
 ;(define f10 (flow 1 "Flujo1")) ;el 1 es la ID
@@ -78,8 +122,6 @@ f10
 
 
 ;(define f11 (flow-add-option f10 op1)) ;se intenta añadir opción duplicada
-
-
 
 
 
