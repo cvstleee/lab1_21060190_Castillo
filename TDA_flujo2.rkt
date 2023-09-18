@@ -2,7 +2,6 @@
 
 ;nuevo comienzo
 
-
 ;RF1 SON LOS NO FUNCIONALES
 
 ;RF2
@@ -17,10 +16,7 @@
 (define (option codigo mensaje ChatBotCodeLink FlowCodeLink . Keyword)
     (list codigo mensaje ChatBotCodeLink FlowCodeLink Keyword)) 
 
-;-----SELECTORES---- (get)
 
-(define (getIDOption option)
-    (car option))
 
 ;RF3
 ; Dominio: ID (int) nombre (String)  X Opcion*  (Indica que puede recibir cero o más opciones).
@@ -30,7 +26,7 @@
 
 ;Construye un flujo
 (define (flow ID name . option)
-   (list(ID name check-option-exists(option)))) 
+   (list ID name option))
 
 ;-----SELECTORES---- (get)
 
@@ -43,6 +39,11 @@
 (define (getOptionFlow flow)
     cdr(cdr(cdr flow)))
 
+;-----SELECTORES---- (get)
+
+(define (getIDOption flow)
+   (caar (caddr flow))) ;pero esto solo me hace sacar la id de la primera opción, que hago si hay más opciones???
+
 
 ;----MODIFICADORES--- (set)
 
@@ -54,12 +55,12 @@
 
 ;---PERTENENCIA--- (realmente verifica que no se repitan las opciones al agregarlas a un flow)
 
-(define (check-option-exists flow option)
+(define (check-option-exists flow)
     (if (null? (filter (lambda (x) (
-        if (equal? (getIDOption x) (getIDOption option))
+        if (equal? (getIDOption x) (getIDOption flow))
             #t
             #f
-        )) (getIDFlow flow)))
+       )) (getIDFlow flow)))
     #f
     #t
     ))
@@ -74,32 +75,47 @@
 
 (define prueba (flow 1 "hmmm" "1)viajar" "entretenerse"))
 
-prueba
-(newline)
+;prueba
+
 
 (define prueba2 (getNameFlow prueba))
 
-prueba2
+;prueba2
 
 (define prueba3 (getOptionFlow prueba))
 
-(define prueba4 (set-option prueba "2)estudiar" "no vacacionar" "descansos de 5 min"))
+;(define prueba4 (set-option prueba "2)estudiar" "no vacacionar" "descansos de 5 min"))
 
-(newline)
-prueba3
+;(newline)
+;prueba3
+;(newline)
+;prueba4
 
-(newline)
-prueba4
-
+;(newline)
 
 ;---SCRIPT DE PRUEBAS----
 
-(define op1 (option  1 "1) Viajar" 2 1 "viajar" "turistear" "conocer"))
-(define op2 (option  2 "2) Estudiar" 3 1 "estudiar" "aprender" "perfeccionarme"))
+(define op1 (option  1 "1. Viajar" 2 1 "viajar" "turistear" "conocer"))
+
+(define op2 (option  2 "2. Estudiar" 3 1 "estudiar" "aprender" "perfeccionarme"))
+
+(define f9 (flow 1 "flujo1" op1 op2)) 
+
 (define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
 
-op1
+f9
+
+
+(define f11 (check-option-exists f10 ))
+(define prueba5 (getIDOption f9))
+
+prueba5
 (newline)
-op2
+
+f11
+
+;op1
 (newline)
-f10
+;op2
+(newline)
+;f10
