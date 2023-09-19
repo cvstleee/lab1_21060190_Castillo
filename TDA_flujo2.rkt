@@ -14,7 +14,7 @@
 ;hay que verificar unicidad del código
 
 (define (option codigo mensaje ChatBotCodeLink FlowCodeLink . Keyword)
-    (list codigo mensaje ChatBotCodeLink FlowCodeLink Keyword)) 
+    (append(list codigo mensaje ChatBotCodeLink FlowCodeLink Keyword))) 
 
 
 
@@ -26,7 +26,7 @@
 
 ;Construye un flujo
 (define (flow ID name . option)
-   (list ID name option))
+   (append(list ID name (list option)))) ;o lo dejo como antes? ya que realmente no me une ambas listas, y con esta forma me agrega aún más parentesis
 
 ;-----SELECTORES---- (get)
 
@@ -55,9 +55,9 @@
 
 ;---PERTENENCIA--- (realmente verifica que no se repitan las opciones al agregarlas a un flow)
 
-(define (check-option-exists flow)
+(define (check-option-exists flow option)
     (if (null? (filter (lambda (x) (
-        if (equal? (getIDOption x) (getIDOption flow))
+        if (equal? (getIDOption x) (getIDOption option))
             #t
             #f
        )) (getIDFlow flow)))
@@ -84,6 +84,7 @@
 
 (define prueba3 (getOptionFlow prueba))
 
+prueba3
 ;(define prueba4 (set-option prueba "2)estudiar" "no vacacionar" "descansos de 5 min"))
 
 ;(newline)
@@ -104,15 +105,6 @@
 (define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
 
 f9
-
-
-(define f11 (check-option-exists f10 ))
-(define prueba5 (getIDOption f9))
-
-prueba5
-(newline)
-
-f11
 
 ;op1
 (newline)
