@@ -1,6 +1,5 @@
 #lang racket
 
-
 ;nuevo comienzo
 
 ;RF1 SON LOS NO FUNCIONALES
@@ -27,7 +26,8 @@
 
 ;Construye un flujo
 (define (flow ID name . option)
-   (list ID name (list check-option option) option)) ;quitar el  option en caso de, el list dentro del check crea una lista de las IDS.
+   (list ID name (check-option option))
+   (display option)) 
 
 ;-----SELECTORES---- (get)
 
@@ -49,16 +49,6 @@
 (define (check-option option1)
     (map getIDOption option1))
 
-(define (comparador listaIDs)
-    (filter (lambda (x)(equal? x (cdr listaIDs)) listaIDs)))
-
-;--PROTOTIPO DEL FILTER, DEBO VER COMO COMPARAR ELEMENTOS DE LA MISMA LISTA
-
-;(define (edades1 edad)
-;  (filter (lambda (x)(not(equal? x 20))) edad))
-
-
-
 ;----MODIFICADORES--- (set)
 
 (define (set-option old-flow . opcion)
@@ -69,15 +59,15 @@
 
 ;---PERTENENCIA--- (realmente verifica que no se repitan las opciones al agregarlas a un flow)
 
-;(define (check-option-exists flow option)
- ;   (if (null? (filter (lambda (x) (
- ;       if (equal? (getIDOption x) (getIDOption option))
-  ;          #t
-   ;         #f
-    ;   )) (getIDFlow flow)))
-   ; #f
-   ; #t
-    ;))
+(define (check-option-exists flow option)
+    (if (null? (filter (lambda (x) (
+        if (equal? (getIDOption x) (getIDOption option))
+            #t
+            #f
+       )) (getIDFlow flow)))
+    #f
+    #t
+    ))
 
 
 
@@ -86,16 +76,16 @@
 
 ;----PRUEBAS----
 
-;(define prueba (flow 1 "hmmm" "1)viajar" "entretenerse"))
+(define prueba (flow 1 "hmmm" "1)viajar" "entretenerse"))
 
 ;prueba
 
 
-;(define prueba2 (getNameFlow prueba))
+(define prueba2 (getNameFlow prueba))
 
 ;prueba2
 
-;(define prueba3 (getOptionFlow prueba))
+(define prueba3 (getOptionFlow prueba))
 
 
 ;(define prueba4 (set-option prueba "2)estudiar" "no vacacionar" "descansos de 5 min"))
@@ -107,11 +97,7 @@
 
 ;(newline)
 
-
-
 ;---SCRIPT DE PRUEBAS----
-
-
 
 (define op1 (option  1 "1. Viajar" 2 1 "viajar" "turistear" "conocer"))
 
@@ -119,14 +105,11 @@
 
 (define f9 (flow 1 "flujo1" op1 op2)) 
 
-
-
 f9
 
 (newline)
-;(define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
+(define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
 
-;f10
 ;op1
 (newline)
 ;op2
