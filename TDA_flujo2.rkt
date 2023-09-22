@@ -27,7 +27,7 @@
 
 ;Construye un flujo
 (define (flow ID name . option)
-   (list ID name (list check-option option) option)) ;quitar el  option en caso de, el list dentro del check crea una lista de las IDS.
+   (list ID name (check-option option))) ;quitar el  option en caso de, el list dentro del check crea una lista de las IDS.
 
 ;-----SELECTORES---- (get)
 
@@ -38,19 +38,38 @@
     (car(cdr flow))) ;2da posición
 
 (define (getOptionFlow flow)
-    cdr(cdr(cdr flow)))
+    cdr(cdr(cdr flow))) ;para pasar a la función de comparador como las otras opciones que tiene el flow, junto a la "id inicial", #t si se repite #f si no
 
 ;-----SELECTORES---- (get)
 
 (define (getIDOption option2)
-   (car option2)) ;pero esto solo me hace sacar la id de la primera opción, que hago si hay más opciones???
+   (car option2))
 
 
 (define (check-option option1)
     (map getIDOption option1))
 
-(define (comparador listaIDs)
-    (filter (lambda (x)(equal? x (cdr listaIDs)) listaIDs)))
+
+;hacer currificación si uso filter
+
+;dsp para agregar al flow 
+;id serian los getid y lista opciones get options
+
+(define (comparador ID listaOpciones);elemento es una lista de opciones en este caso
+    (map ((lambda(ID)(lambda(elemento)
+    (if (= ID (getIDOption elemento))
+        #t
+        #f)
+        ))ID)listaOpciones))
+    
+    
+    ;(filter (lambda (x)(not(equal? x (cdr listaIDs))) listaIDs)))
+
+;(define (repetidos Lista1)
+;(cond
+;((null? Lista1) Lista1)
+;((equal? (car Lista1) (cdr Lista1)) (repetidos (cdr Lista1)))
+;(else (concatena (list (car Lista1)) (repetidos (cdr Lista1))))))
 
 ;--PROTOTIPO DEL FILTER, DEBO VER COMO COMPARAR ELEMENTOS DE LA MISMA LISTA
 
@@ -120,8 +139,23 @@
 (define f9 (flow 1 "flujo1" op1 op2)) 
 
 
+;lo de abajo recopilarlo en una funcion
+(define l1 (list op1 op2 ))
 
-f9
+(define l2 (comparador 1 l1)) ;'(#t #f)
+
+(define l3 (member #t l2)) ;comprueba si existe cierto elemento dentro de la lista y devuelve ese elemento hasta el final de la lista y si no lo encuentra da un false
+
+(define l4 (if (boolean? l3) ;si no lo encuentra, va a devolver un booleano (#f), por lo que se comprueba si el argumento es realmente un booleano, pq no encontró el elemento en la lista
+    #f
+    #t))
+l1
+
+l2
+l3
+l4
+
+;f9
 
 (newline)
 ;(define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
