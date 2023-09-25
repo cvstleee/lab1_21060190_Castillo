@@ -1,8 +1,5 @@
 #lang racket
 
-
-;nuevo comienzo
-
 ;RF1 SON LOS NO FUNCIONALES
 
 ;RF2
@@ -46,6 +43,7 @@
    (car option2))
 
 
+;creo que este es innecesario ahora
 (define (check-option option1)
     (map getIDOption option1))
 
@@ -55,26 +53,19 @@
 ;dsp para agregar al flow 
 ;id serian los getid y lista opciones get options
 
+;---COMPARADOR---
+; Dominio: ID (int) X Opciones (list).
+; Recorrido: Una lista de true o false.
+; Descripcion: Retorna True si la ID se encuentra en la lista de opciones y False si no.
+; Tipo de recursion: No se utiliza.
+
+
 (define (comparador ID listaOpciones);elemento es una lista de opciones en este caso
     (map ((lambda(ID)(lambda(elemento)
     (if (= ID (getIDOption elemento))
         #t
         #f)
         ))ID)listaOpciones))
-    
-    
-    ;(filter (lambda (x)(not(equal? x (cdr listaIDs))) listaIDs)))
-
-;(define (repetidos Lista1)
-;(cond
-;((null? Lista1) Lista1)
-;((equal? (car Lista1) (cdr Lista1)) (repetidos (cdr Lista1)))
-;(else (concatena (list (car Lista1)) (repetidos (cdr Lista1))))))
-
-;--PROTOTIPO DEL FILTER, DEBO VER COMO COMPARAR ELEMENTOS DE LA MISMA LISTA
-
-;(define (edades1 edad)
-;  (filter (lambda (x)(not(equal? x 20))) edad))
 
 
 
@@ -84,19 +75,6 @@
     (flow   (getIDFlow old-flow)
             (getNameFlow old-flow)
             opcion))
-
-
-;---PERTENENCIA--- (realmente verifica que no se repitan las opciones al agregarlas a un flow)
-
-;(define (check-option-exists flow option)
- ;   (if (null? (filter (lambda (x) (
- ;       if (equal? (getIDOption x) (getIDOption option))
-  ;          #t
-   ;         #f
-    ;   )) (getIDFlow flow)))
-   ; #f
-   ; #t
-    ;))
 
 
 
@@ -140,7 +118,7 @@
 
 
 ;lo de abajo recopilarlo en una funcion
-(define l1 (list op1 op2 ))
+(define l1 (list op1 op1 op2))
 
 (define l2 (comparador 1 l1)) ;'(#t #f)
 
