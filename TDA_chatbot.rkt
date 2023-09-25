@@ -2,18 +2,16 @@
 (require "TDA_flujo.rkt")
 
 
-
-
-
 ;RF5
 ; Dominio: name (String) X welcomeMessage (String)  X  flows* (indicando que puede recibir 0 o más flujos).
 ; Recorrido: Chatbot.
 ; Descripcion: crea un chatbot.
 ; Tipo de recursion: No se utiliza.
 
+;La función también verifica que los flujos añadidos no se repitan en base al id de éstos, prácticamente lo mismo que option
 
-(define (chatbot name welcomeMessage . flows)
-    (list name welcomeMessage flows))
+(define (chatbot chatbotID name welcomeMessage startFlowId . flows)
+    (list chatbotID name welcomeMessage startFlowId  flows))
 
 
 ;RF6 incompleta
@@ -25,7 +23,7 @@
 ;añade flujos al final de la lista de flujos
 (define (chatbot-add-flow chatbot flow)
     (if (null? chatbot) (list chatbot flow)
-    (chatbot-add-flow (list chatbot flow)))
+    (chatbot-add-flow (list chatbot flow))))
     
 
 

@@ -9,8 +9,8 @@
 ; Descripcion: crea un sistema junto a su fecha de creación.
 ; Tipo de recursion: no se utiliza.
 
-(define (system name . chatbot)
-    (list fecha-actual name chatbot))
+(define (system name InitialChatbotCodeLink . chatbot)
+    (list fecha-actual name InitialChatbotCodeLink chatbot))
 
 ;RF8
 ; Dominio: system X chatbot
@@ -18,7 +18,7 @@
 ; Descripcion: agrega un chatbot al sistema.
 ; Tipo de recursion: no se utiliza.
 
-;ver que el chatbot no exista en el sistema
+;Debe verificar que el chatbot no exista en el sistema a partir del id de éste.
 
 (define (system-add-chatbot sistema chatbot)
     (list sistema chatbot))
@@ -34,6 +34,10 @@
 (define (system-add-user sistema user)
     (list sistema user))
 
+;función que selecciona el nombre del usuario, servirá para comprobar si existe o no, requerimiento de RF9
+(define (get-user sistema)
+    (cdr sistema))
+
 
 ;RF10
 ; Dominio: system X user (string)
@@ -42,6 +46,8 @@
 ; Tipo de recursion: no se utiliza.
 
 ;Solo pueden iniciar sesión usuarios registrados mediante la función register system-add-user.
+;No se puede iniciar sesión si ya existe una sesión iniciada por otro usuario.
+
 
 (define (system-login sistema user)
     (list sistema user))
