@@ -8,9 +8,6 @@
 ; Descripcion: opciones de un chatbot que se puede vincular a otros.
 ; Tipo de recursion: No se utiliza.
 
-
-;hay que verificar unicidad del código
-
 (define (option codigo mensaje ChatBotCodeLink FlowCodeLink . Keyword)
     (list codigo mensaje ChatBotCodeLink FlowCodeLink Keyword))
 
@@ -24,7 +21,26 @@
 
 ;Construye un flujo
 (define (flow ID name . option)
-   (list ID name (check-option option))) ;quitar el  option en caso de, el list dentro del check crea una lista de las IDS.
+    (append (list ID name)
+    (list (remove-duplicates option limpiador_ID))))
+
+
+;RF4
+; Dominio: Flujo X opción
+; Recorrido: flujo.
+; Descripcion: agrega opciones a un flujo.
+; Tipo de recursion: No se utiliza.
+
+;en esta se verifica? por el add
+
+;modifica, por lo tanto tiene que tener sets y gets, modifica opciones
+(define (flow-add-option flujo opcion)
+    (list opcion flujo)) 
+
+;(define flow (lambda (ID name . option)
+ ;   (append (list ID name)
+  ;  (list (remove-duplicates option comparador)))))
+
 
 ;-----SELECTORES---- (get)
 
@@ -60,13 +76,19 @@
 ; Tipo de recursion: No se utiliza.
 
 
-(define (comparador ID listaOpciones);elemento es una lista de opciones en este caso
-    (map ((lambda(ID)(lambda(elemento)
-    (if (= ID (getIDOption elemento))
-        #t
-        #f)
-        ))ID)listaOpciones))
 
+
+;como le paso el get id y el get options? con map? necesito un filter? uso el check?
+
+;(define (comparador ID listaOpciones);elemento es una lista de opciones en este caso
+;    (map ((lambda(ID)(lambda(elemento)
+ ;   (if (= ID (getIDOption elemento))
+  ;      #t
+   ;     #f)
+    ;    ))ID)listaOpciones))
+
+(define (limpiador_ID lista agregados)
+   (equal? (car lista) (car agregados)))
 
 
 ;----MODIFICADORES--- (set)
@@ -75,35 +97,6 @@
     (flow   (getIDFlow old-flow)
             (getNameFlow old-flow)
             opcion))
-
-
-
-
-
-
-;----PRUEBAS----
-
-;(define prueba (flow 1 "hmmm" "1)viajar" "entretenerse"))
-
-;prueba
-
-
-;(define prueba2 (getNameFlow prueba))
-
-;prueba2
-
-;(define prueba3 (getOptionFlow prueba))
-
-
-;(define prueba4 (set-option prueba "2)estudiar" "no vacacionar" "descansos de 5 min"))
-
-;(newline)
-;prueba3
-;(newline)
-;prueba4
-
-;(newline)
-
 
 
 ;---SCRIPT DE PRUEBAS----
@@ -117,28 +110,18 @@
 (define f9 (flow 1 "flujo1" op1 op2)) 
 
 
-;lo de abajo recopilarlo en una funcion
-(define l1 (list op1 op1 op2))
 
-(define l2 (comparador 1 l1)) ;'(#t #f)
 
-(define l3 (member #t l2)) ;comprueba si existe cierto elemento dentro de la lista y devuelve ese elemento hasta el final de la lista y si no lo encuentra da un false
 
-(define l4 (if (boolean? l3) ;si no lo encuentra, va a devolver un booleano (#f), por lo que se comprueba si el argumento es realmente un booleano, pq no encontró el elemento en la lista
-    #f
-    #t))
-l1
-
-l2
-l3
-l4
-
-;f9
+;(define l5 (comparador))
 
 (newline)
-;(define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
+(define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
 
-;f10
+;(define f11 (caddr f10))
+
+f10
+(newline)
 ;op1
 (newline)
 ;op2
