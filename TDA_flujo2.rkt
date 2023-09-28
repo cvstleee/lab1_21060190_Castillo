@@ -22,7 +22,7 @@
 ;Construye un flujo
 (define (flow ID name . option)
     (append (list ID name)
-    (list (remove-duplicates option limpiador_ID))))
+    (car(list (remove-duplicates option limpiador_ID)))))
 
 
 ;RF4
@@ -34,13 +34,13 @@
 ;en esta se verifica? por el add
 
 ;modifica, por lo tanto tiene que tener sets y gets, modifica opciones
-(define (flow-add-option flujo opcion)
-    (list opcion flujo)) 
+(define (flow-add-option old-flow . option)
+    (flow   (getIDFlow old-flow)
+            (getNameFlow old-flow)
+            (getOptionFlow old-flow)
+            option))
 
-;(define flow (lambda (ID name . option)
- ;   (append (list ID name)
-  ;  (list (remove-duplicates option comparador)))))
-
+;no me está funcionando si se duplica la op2
 
 ;-----SELECTORES---- (get)
 
@@ -51,7 +51,7 @@
     (car(cdr flow))) ;2da posición
 
 (define (getOptionFlow flow)
-    cdr(cdr(cdr flow))) ;para pasar a la función de comparador como las otras opciones que tiene el flow, junto a la "id inicial", #t si se repite #f si no
+    (car(cdr(cdr(cdr flow))))) ;si le saco el car, el f11 funciona sin poner el op1 al final, pero el f12 no funciona
 
 ;-----SELECTORES---- (get)
 
@@ -70,22 +70,10 @@
 ;id serian los getid y lista opciones get options
 
 ;---COMPARADOR---
-; Dominio: ID (int) X Opciones (list).
-; Recorrido: Una lista de true o false.
-; Descripcion: Retorna True si la ID se encuentra en la lista de opciones y False si no.
-; Tipo de recursion: No se utiliza.
+; Dominio: lista opciones x lista opciones por agregar
+; Recorrido: true o false
+; Descripcion: Compara ID's de las opciones que se van agregando a un flow
 
-
-
-
-;como le paso el get id y el get options? con map? necesito un filter? uso el check?
-
-;(define (comparador ID listaOpciones);elemento es una lista de opciones en este caso
-;    (map ((lambda(ID)(lambda(elemento)
- ;   (if (= ID (getIDOption elemento))
-  ;      #t
-   ;     #f)
-    ;    ))ID)listaOpciones))
 
 (define (limpiador_ID lista agregados)
    (equal? (car lista) (car agregados)))
@@ -93,10 +81,10 @@
 
 ;----MODIFICADORES--- (set)
 
-(define (set-option old-flow . opcion)
-    (flow   (getIDFlow old-flow)
-            (getNameFlow old-flow)
-            opcion))
+;(define (set-option old-flow . opcion)
+ ;   (flow   (getIDFlow old-flow)
+  ;          (getNameFlow old-flow)
+   ;         opcion))
 
 
 ;---SCRIPT DE PRUEBAS----
@@ -108,22 +96,17 @@
 (define op2 (option  2 "2. Estudiar" 3 1 "estudiar" "aprender" "perfeccionarme"))
 
 (define f9 (flow 1 "flujo1" op1 op2)) 
-
-
-
-
-
-;(define l5 (comparador))
-
 (newline)
-(define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
-
-;(define f11 (caddr f10))
-
+(define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1))
 f10
 (newline)
-;op1
+;(display (getOptionFlow f10))
+
+
+(define f11 (flow-add-option f10 op1)) 
 (newline)
-;op2
+f11 ;me da el op1 al final y no en el inicio
+
+(define f12 (flow-add-option f11 op2))
 (newline)
-;f10
+f12
