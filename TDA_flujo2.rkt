@@ -40,6 +40,8 @@
             (getOptionFlow old-flow)
             option))
 
+;hacer que en una lista se me junten los option antiguos y nuevos con un append 
+
 ;no me está funcionando si se duplica la op2
 
 ;-----SELECTORES---- (get)
