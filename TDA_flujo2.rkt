@@ -40,7 +40,7 @@
             (getOptionFlow old-flow)
             option))
 
-;no me está funcionando si se duplica la op2
+;en f11 me devuelve al revés las opciones, ver si uso reverse
 
 ;-----SELECTORES---- (get)
 
@@ -66,8 +66,6 @@
 
 ;hacer currificación si uso filter
 
-;dsp para agregar al flow 
-;id serian los getid y lista opciones get options
 
 ;---COMPARADOR---
 ; Dominio: lista opciones x lista opciones por agregar
@@ -98,7 +96,7 @@
 (define f9 (flow 1 "flujo1" op1 op2)) 
 (newline)
 (define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1))
-f10
+;f10
 (newline)
 ;(display (getOptionFlow f10))
 
@@ -109,4 +107,9 @@ f11 ;me da el op1 al final y no en el inicio
 
 (define f12 (flow-add-option f11 op2))
 (newline)
-f12
+;f12
+
+
+(provide limpiador_ID)
+(provide f10)
+(provide f12) ;exporta cierta función, se puede hacer con todas con all-defined-out.

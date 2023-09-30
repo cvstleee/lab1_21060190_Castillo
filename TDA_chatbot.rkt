@@ -1,5 +1,5 @@
 #lang racket
-(require "TDA_flujo.rkt")
+(require "TDA_flujo2.rkt")
 
 
 ;RF5
@@ -11,7 +11,24 @@
 ;La función también verifica que los flujos añadidos no se repitan en base al id de éstos, prácticamente lo mismo que option
 
 (define (chatbot chatbotID name welcomeMessage startFlowId . flows)
-    (list chatbotID name welcomeMessage startFlowId  flows))
+    (append (list chatbotID name welcomeMessage startFlowId)
+    (car(list(remove-duplicates flows limpiador_ID)))))
+
+(define (getIDChatbot chatbot)
+    (car chatbot))
+
+(define (getNameChatbot chatbot)
+    (cadr chatbot))
+
+(define (getWelcomeMessage chatbot)
+    (caddr chatbot))
+
+;aqui hay un error para rf6, ver que onda
+(define (getStartFlowID chatbot)
+    (cadddr chatbot))
+
+(define (getFlowsChatbot chatbot)
+    (cadddr(cdr chatbot)))
 
 
 ;RF6 incompleta
@@ -21,25 +38,39 @@
 ; Tipo de recursion: De cola o natural (cambiarlo cuando la termine)
 
 ;añade flujos al final de la lista de flujos
-(define (chatbot-add-flow chatbot flow)
-    (if (null? chatbot) (list chatbot flow)
-    (chatbot-add-flow (list chatbot flow))))
+(define (chatbot-add-flow old-chatbot . flow)
+    (chatbot    (getIDChatbot old-chatbot)
+                (getNameChatbot old-chatbot)
+                (getWelcomeMessage old-chatbot)
+                (getStartFlowID old-chatbot)
+                (getFlowsChatbot old-chatbot)
+                flow))
+    ;(if (null? flow) chatbot)
     
 
 
-
-
 ;creando un nuevo chatbot
-(define cb10 (chatbot "Asistente" "Bienvenido \n ¿Qué te gustaría hacer?"))
+(define cb10 (chatbot 0 "Asistente" "Bienvenido\n ¿Qué te gustaría hacer?" 1))
+;alternativamente podría usarse:
+;(define cb11  (chatbot 0 "Asistente" "Bienvenido\n¿Qué te gustaría hacer?" 1 f12))
+
+;(define cb0 (chatbot 0 "Inicial" "Bienvenido\n¿Qué te gustaría hacer?" 1 f10 f10 f10 f10))  ;solo añade una ocurrencia de f10
+
+;(define prueba1 (getFlowsChatbot cb11)) 
 
 ;añadiendo flujo a un chatbot
 ;el resultado alcanzado en cb11 es equivalente al ilustrado en cb11 de la función 5.
 (define cb11 (chatbot-add-flow cb10 f12))
-;alternativamente podría usarse:
-;(define cb11 (chatbot "Asistente" "Bienvenido \n ¿Qué te gustaría hacer?" f12)) ;no reconoce el salto de línea, pero es problema del ejemplo del profe
 
 
+
+(newline)
 cb11
+(newline)
+;cb0
+
+(newline)
+;prueba1
 
 (provide cb11)
 
