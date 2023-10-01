@@ -1,5 +1,5 @@
-# pruebas-lab-paradigmas
+# ENTREGA 1 LABORATORIO PARADIGMAS (SCHEME)
 
-Es un repositorio de prueba para el lab, donde guardaré avances y cosas hasta que se cumplan el plazo de 2 semanas
+Repositorio de mi trabajo para el proyecto del laboratorio de Paradigmas de programación S2_2023
 
-DONDE QUEDÉ: azctualización de funciones con la verificación de la ID + ver si empiezo de nuevo
+DONDE QUEDÉ: rf5

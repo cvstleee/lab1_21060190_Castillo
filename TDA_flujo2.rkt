@@ -40,7 +40,7 @@
             (getOptionFlow old-flow)
             option))
 
-;en f11 me devuelve al revés las opciones, ver si uso reverse
+;no me está funcionando si se duplica la op2
 
 ;-----SELECTORES---- (get)
 
