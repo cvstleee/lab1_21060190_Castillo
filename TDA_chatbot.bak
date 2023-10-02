@@ -29,7 +29,7 @@
     (cadddr chatbot))
 
 (define (getFlowsChatbot chatbot)
-    (cadddr(cdr chatbot)))
+    (cadddr chatbot))
 
 
 ;RF6 incompleta
@@ -42,14 +42,14 @@
 (define (chatbot-add-flow old-chatbot flow)
     (cond 
     [(null? flow) old-chatbot]
-    [else (append (chatbot (add-flow-end (getFlowsChatbot old-chatbot) flow)))])) 
+    [else (append (chatbot (add-flow-end (getFlowsChatbot old-chatbot) flow)))])) ;aqui algo funciona mal
     
 
 ;funcion auxiliar
 (define (add-flow-end flow new-flow)
     (if (null? flow) ;si el chatbot no posee flujos, que agregue sin más el nuevo
         new-flow
-        (append (list (car flow)) (add-flow-end (cdr flow) new-flow)))) ;sino
+        (list (car flow) (add-flow-end (cdr flow) new-flow)))) ;sino
 
 ;agrega al final
 

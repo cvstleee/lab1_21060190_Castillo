@@ -64,8 +64,6 @@
     (map getIDOption option1))
 
 
-;hacer currificación si uso filter
-
 
 ;---COMPARADOR---
 ; Dominio: lista opciones x lista opciones por agregar
@@ -75,14 +73,6 @@
 
 (define (limpiador_ID lista agregados)
    (equal? (car lista) (car agregados)))
-
-
-;----MODIFICADORES--- (set)
-
-;(define (set-option old-flow . opcion)
- ;   (flow   (getIDFlow old-flow)
-  ;          (getNameFlow old-flow)
-   ;         opcion))
 
 
 ;---SCRIPT DE PRUEBAS----
@@ -107,7 +97,7 @@ f11 ;me da el op1 al final y no en el inicio
 
 (define f12 (flow-add-option f11 op2))
 (newline)
-;f12
+f12
 
 
 (provide limpiador_ID)
