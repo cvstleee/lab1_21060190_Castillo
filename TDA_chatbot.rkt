@@ -65,22 +65,18 @@
 ;creando un nuevo chatbot
 (define cb10 (chatbot 0 "Asistente" "Bienvenido\n ¿Qué te gustaría hacer?" 1))
 ;alternativamente podría usarse:
-;(define cb11  (chatbot 0 "Asistente" "Bienvenido\n¿Qué te gustaría hacer?" 1 f12))
+(define cb11  (chatbot 0 "Asistente" "Bienvenido\n¿Qué te gustaría hacer?" 1 f12))
 
-;(define cb0 (chatbot 0 "Inicial" "Bienvenido\n¿Qué te gustaría hacer?" 1 f10 f10 f10 f10))  ;solo añade una ocurrencia de f10
+(define cb0 (chatbot 0 "Inicial" "Bienvenido\n¿Qué te gustaría hacer?" 1 f10 f10 f10 f10))  ;solo añade una ocurrencia de f10
 
 ;(define prueba1 (getFlowsChatbot cb11)) 
 
 ;añadiendo flujo a un chatbot
 ;el resultado alcanzado en cb11 es equivalente al ilustrado en cb11 de la función 5.
-(define cb11 (chatbot-add-flow cb10 f12))
-
-
+;(define cb11 (chatbot-add-flow cb10 f12))
 
 (newline)
-cb11
-(newline)
-;cb0
+cb0
 
 (newline)
 ;prueba1

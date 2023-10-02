@@ -1,6 +1,6 @@
 #lang racket
 (require "TDA_fecha.rkt")
-
+(require "TDA_flujo2.rkt")
 (require "TDA_chatbot.rkt")
 
 ;RF7
@@ -9,8 +9,11 @@
 ; Descripcion: crea un sistema junto a su fecha de creación.
 ; Tipo de recursion: no se utiliza.
 
+;identificar que los chatbots no se repitan + arreglar lo de la lista vacia cuando no se agregan chatbots (poner un if?)
 (define (system name InitialChatbotCodeLink . chatbot)
-    (list fecha-actual name InitialChatbotCodeLink chatbot))
+    (if (null? chatbot) (list fecha-actual name InitialChatbotCodeLink) ;si no hay chatbots que me devuelva una lista con los otros parametros
+    (append (list fecha-actual name InitialChatbotCodeLink) ;si existen chatbots que me devuelva la lista completa
+    (car(list(remove-duplicates chatbot limpiador_ID)))))) ;verifica que no se repitan
 
 ;RF8
 ; Dominio: system X chatbot
@@ -19,6 +22,7 @@
 ; Tipo de recursion: no se utiliza.
 
 ;Debe verificar que el chatbot no exista en el sistema a partir del id de éste.
+;lo hago con getters (como el flow) o como lo hice en el chatbot?
 
 (define (system-add-chatbot sistema chatbot)
     (list sistema chatbot))
@@ -60,22 +64,22 @@
 ; Tipo de recursion: no se utiliza.
 
 ;debe eliminar a un usuario
-(define (system-logout sistema)
-    )
+;(define (system-logout sistema)
+ ;   )
 
 
 ;RF12 para el 4 y algooooo, hasta aqui debo llegar si o si
 
 
 ;creando la un nuevo sistema de chatbots con nombre “NewSystem”
-(define s0 (system "NewSystem"))
-
+(define s0 (system "NewSystem" 0))
 ;alternativamente podría usarse:
 (define s1 (system "NewSystem" cb11))
 
+
 ;añadiendo un chatbot al sistema.
 ;el resultado alcanzado en s1 es equivalente al ilustrado en s1 de la función 7.
-(define s2 (system-add-chatbot s0 cb11))
+;(define s2 (system-add-chatbot s0 cb11))
 
 
 (newline)
@@ -83,4 +87,3 @@ s0
 (newline)
 s1
 (newline)
-s2
