@@ -1,0 +1,5 @@
+En el archivo .zip se encontrarán todos los archivos .rkt en la carpeta llamada "Código fuente" que servirán para hacer funcionar el programa. Para probarlo se debe usar el que se llama “pruebas_21060190_CastilloPerez.rkt", el cual contiene todas las pruebas realizadas al código. Para hacerlo funcionar, se deben llamar las funciones de dos maneras que se muestran en el anexo 2 (no se pueden llamar a todas con solo una llamada, tiene que ser si o si una llamada para cada una).
+
+Después de llamar a las funciones deseadas, en caso de que estas funcionen, se mostrará una lista de listas en el terminal con sus respectivos componentes (anexo 3 con función s5), en caso contrario no se mostrará nada, ya que en pruebas previas realizadas, se dejaron como comentario las funciones que daban error, debido a que hay funciones dentro de los TDA que funcionan parcialmente o no fueron terminadas.
+
+Por otro lado, es posible que el programa tenga errores cuando se ingresan listas vacías a ciertas funciones y se asume que se entregan correctamente las entradas para evitar otros posibles errores.

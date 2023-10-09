@@ -1,0 +1,32 @@
+Requerimiento / Puntaje
+
+No funcionales
+
+Autoevaluación:	Obligatorio
+Lenguaje:	Obligatorio
+Versión:	Obligatorio
+Standard:	Obligatorio
+Documentación:	1
+Dom->Rec:	Obligatorio
+Organización:	1
+Historial:	1
+Script de pruebas:	Obligatorio
+Prerrequisitos:	Obligatorio
+
+Funcionales
+
+TDA:	0.75
+Option:	1
+Flow:	1
+Flow-add-option:	0.75
+Chatbot:	1
+Chatbot-add-flow:	1
+System:	1
+System-add-chatbot:	1
+System-add-user:	1
+System-login:	0.5
+System-logout:	0.5
+system-talk-rec:	0
+system-talk-norec:	0
+system-synthesis:	0
+system-simulate:	0
