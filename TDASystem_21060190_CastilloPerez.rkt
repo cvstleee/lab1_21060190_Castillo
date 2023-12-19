@@ -9,11 +9,12 @@
 ; Recorrido: system
 ; Descripcion: crea un sistema junto a su fecha de creación.
 ; Tipo de recursion: no se utiliza.
+;el primer list null es de los usuarios registrados y el segundo del usuario logueado
 
 (define (system name InitialChatbotCodeLink . chatbot)
     (if (null? chatbot) (list fecha-actual name InitialChatbotCodeLink (list null))
     (append (list fecha-actual name InitialChatbotCodeLink)
-    (car(list(remove-duplicates chatbot limpiador_ID))) (list null))))
+    (car(list(remove-duplicates chatbot limpiador_ID))) (list null) (list null))))
 
 
 ;----SELECTORES---
@@ -78,7 +79,8 @@
             (getNameSystem system)
             (getInitialChatbotCodeLink system)
             (getChatbot system)
-            (flatten (list (car(cddddr system)) (list user))))))
+            (flatten (list (car(cddddr system)) (list user)))
+            null)))
 
 
 
@@ -87,7 +89,14 @@
 ; Descripcion: Obtiene los usuarios registrados en un sistema
 ; Tipo de recursion: no se utiliza.
 (define (get-user system)
-    (car (reverse system)))
+    (cadr (reverse system)))
+
+; Dominio: system 
+; Recorrido: list 
+; Descripcion: Obtiene el usuario logueado en un sistema
+; Tipo de recursion: no se utiliza.
+(define (get-user-log system)
+  (car(reverse system)))
 
 ;RF10
 ; Dominio: system X user (string)
@@ -95,21 +104,21 @@
 ; Descripcion: Un usuario registrado inicia sesión.
 ; Tipo de recursion: no se utiliza.
 
+;como hago que no inicie sesión si ya hay un user logueado?
+
 (define (system-login system user)
-  (if (member user (get-user system))
-      (list (getFecha system)
-            (getNameSystem system)
-            (getInitialChatbotCodeLink system)
-            (getChatbot system)
-            (get-user system)
-            (list "Usuario activo: " user))
-            (list (getFecha system)
-            (getNameSystem system)
-            (getInitialChatbotCodeLink system)
-            (getChatbot system)
-            (get-user system)
-            (list "No se pudo iniciar sesion debido a que el usuario no esta registrado"))))
-              
+  (if (null? (get-user-log system))
+      (if (member user (get-user system))
+          (list (getFecha system)
+                (getNameSystem system)
+                (getInitialChatbotCodeLink system)
+                (getChatbot system)
+                (get-user system)
+                (list user))
+          system)
+      system))
+
+            
 
 ;RF11
 ; Dominio: system 
@@ -118,9 +127,9 @@
 ; Tipo de recursion: no se utiliza.
 
 (define (system-logout system)
-  (list (list (getFecha system)
+  (list (getFecha system)
               (getNameSystem system)
               (getInitialChatbotCodeLink system)
               (getChatbot system)
               (get-user system)
-              null)))
+              null))
